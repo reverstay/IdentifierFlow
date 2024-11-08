@@ -1,0 +1,22 @@
+services:
+  postgres:
+    image: postgres:17
+    env_file:
+      - ./keys.env
+    ports:
+      - "5432:5432"
+
+  sistema_neuverse:
+    container_name: sistema_neuverse
+    build:
+      context: .
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./sistema_neuverse:/sistema_neuverse
+      - ./data/web/static:/data/web/static/
+      - ./data/web/media:/data/web/media/
+    env_file:
+      - ./keys.env
+    depends_on:
+      - postgres
