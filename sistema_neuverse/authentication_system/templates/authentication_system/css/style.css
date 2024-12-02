@@ -1,0 +1,142 @@
+
+/* Estilos para o tema claro */
+body.light-theme {
+    background-color: #ffffff;
+    color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.light-theme .navbar-light .navbar-brand,
+body.light-theme .navbar-light .navbar-nav .nav-link {
+    color: #000000;
+}
+
+body.light-theme .jumbotron {
+    background-color: #f8f9fa;
+    color: #000000;
+    border: 1px solid #dee2e6;
+}
+
+body.light-theme .btn-light {
+    background-color: #ffffff;
+    color: #000000;
+}
+
+body.light-theme .btn-dark {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+body.light-theme .container {
+    flex: 1;
+    background-color: #ffffff;
+}
+
+body.light-theme .card {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+body.light-theme .card-header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #dee2e6;
+}
+
+body.light-theme .card-body {
+    background-color: #f8f9fa;
+}
+
+/* Estilos para o tema escuro */
+body.dark-theme {
+    background-color: #343a40;
+    color: #ffffff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.dark-theme .navbar-light .navbar-brand,
+body.dark-theme .navbar-light .navbar-nav .nav-link {
+    color: #ffffff;
+}
+
+body.dark-theme .jumbotron {
+    background-color: #333333;
+    color: #ffffff;
+    border: 1px solid #444444;
+}
+
+body.dark-theme .btn-light {
+    background-color: #ffffff;
+    color: #343a40;
+}
+
+body.dark-theme .btn-dark {
+    background-color: #343a40;
+    color: #ffffff;
+}
+
+body.dark-theme .container {
+    flex: 1;
+    background-color: #343a40;
+}
+
+body.dark-theme .card {
+    background-color: #333333;
+    border: 1px solid #444444;
+}
+
+body.dark-theme .form-group {
+    color: white;
+}
+
+body.dark-theme .card-header {
+    background-color: #444444;
+    border-bottom: 1px solid #555555;
+}
+
+body.dark-theme .card-body {
+    background-color: #333333;
+}
+
+body.dark-theme .card-body label {
+    color: #ffffff !important;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .navbar-nav {
+        text-align: center;
+    }
+    .jumbotron {
+        padding: 2rem 1rem;
+    }
+    .btn {
+        margin-bottom: 1rem;
+    }
+}
+/* Estilos para o tema claro */
+body.light-theme nav {
+    background-color: #f8f9fa;
+    color: #000;
+}
+
+body.light-theme .navbar-light .navbar-brand {
+    color: #000;
+}
+
+body.light-theme .navbar-light .navbar-nav .nav-link {
+    color: #000;
+}
+
+/* Estilo para tema claro */
+body.light-theme .bg-light {
+    background-color: #689bce !important;  /* Cor do tema claro */
+}
+
+/* Estilo para tema escuro */
+body.dark-theme .bg-light {
+    background-color: #343a40 !important;  /* Cor do tema escuro */
+}

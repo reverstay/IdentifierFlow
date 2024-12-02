@@ -1,0 +1,109 @@
+{% load static i18n widget_tweaks %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Home</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function switchTheme(theme) {
+            const body = document.body;
+
+            if (theme === 'dark') {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+            } else {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+            }
+
+            // Salva o tema escolhido em um cookie
+            document.cookie = `theme=${theme};path=/`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const theme = "{{ theme }}";
+            switchTheme(theme);
+        });
+    </script>
+</head>
+<body class="light-theme">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Neu.system</a>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/authentication_system/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register/">Registrar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login/">Login</a>
+            </li>
+            <li>
+                <form action="/i18n/setlang/" method="post" class="form-inline">
+                    {% csrf_token %}
+                    <select name="language" onchange="this.form.submit()" class="form-control ml-2">
+                        <option value="en">Inglês</option>
+                        <option value="pt" selected="">Português</option>
+                        <option value="es">Espanhol</option>
+                    </select>
+                </form>
+            </li>
+            <li>
+                <button class="btn btn-light ml-2" onclick="switchTheme('light')">Light Theme</button>
+                <button class="btn btn-dark ml-2" onclick="switchTheme('dark')">Dark Theme</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid mt-5">
+    <div class="row">
+        <!-- Drawer lateral -->
+        <div class="col-md-3 bg-light p-3" style="min-height: 100vh;">
+            <h4>Menu</h4>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Opção 1</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Opção 2</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Opção 3</a>
+                </li>
+                <!-- Adicione mais opções aqui -->
+            </ul>
+        </div>
+
+        <!-- Conteúdo principal: Mapa da planta baixa -->
+        <div class="col-md-9">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Planta baixa</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Aqui seria exibido o mapa da planta baixa -->
+                    <div id="mapa-planta" style="height: 500px; background-color: #f0f0f0; text-align: center;">
+                        <p>Exemplo de Mapa da Planta</p>
+                        <!-- Use uma imagem ou algum widget interativo aqui -->
+                        <img src="{% static 'images/planta.png' %}" alt="Planta baixa" style="max-width: 100%; height: auto;">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

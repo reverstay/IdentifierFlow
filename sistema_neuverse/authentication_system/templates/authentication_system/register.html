@@ -1,0 +1,117 @@
+{% load static i18n widget_tweaks %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Registrar</title>
+    <link rel="stylesheet" href="{% static 'style.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function switchTheme(theme) {
+            const body = document.body;
+
+            if (theme === 'dark') {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+            } else {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+            }
+
+            // Salva o tema escolhido em um cookie
+            document.cookie = `theme=${theme};path=/`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const theme = "{{ theme }}";
+            switchTheme(theme);
+        });
+    </script>
+</head>
+<body class="light-theme">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">Neu.system</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/authentication_system/">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/register/">Registrar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/login/">Login</a>
+            </li>
+            <li>
+                <form action="/i18n/setlang/" method="post" class="form-inline">
+                    {% csrf_token %}
+                    <select name="language" onchange="this.form.submit()" class="form-control ms-2">
+                        <option value="en">Inglês</option>
+                        <option value="pt" selected="">Português</option>
+                        <option value="es">Espanhol</option>
+                    </select>
+                </form>
+            </li>
+            <li>
+                <button class="btn btn-light ms-2" onclick="switchTheme('light')">Light Theme</button>
+                <button class="btn btn-dark ms-2" onclick="switchTheme('dark')">Dark Theme</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container-fluid mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header text-center">
+                    <h3>Registrar</h3>
+                </div>
+                <div class="card-body">
+                    <!-- Exibe erros se houver -->
+                    {% if form.errors %}
+                        <div class="alert alert-danger">
+                            <ul>
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
+
+                    <!-- Formulário de registro -->
+                    <form method="post" action="{% url 'register' %}">
+                        {% csrf_token %}
+                        {{ form.username.label_tag }}  <!-- Etiqueta do campo username -->
+                        {% render_field form.username class="form-control" %}
+
+                        {{ form.email.label_tag }}  <!-- Etiqueta do campo email -->
+                        {% render_field form.email class="form-control" %}
+
+                        {{ form.password1.label_tag }}  <!-- Etiqueta do campo password1 -->
+                        {% render_field form.password1 class="form-control" %}
+
+                        {{ form.password2.label_tag }}  <!-- Etiqueta do campo password2 -->
+                        {% render_field form.password2 class="form-control" %}
+
+                        <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

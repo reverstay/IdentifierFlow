@@ -1,0 +1,7 @@
+<h2>Adicionar Dispositivo à {{ house.name }}</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Adicionar Dispositivo</button>
+</form>

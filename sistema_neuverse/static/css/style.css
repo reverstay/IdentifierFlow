@@ -1,0 +1,41 @@
+:root {
+    --text-claro: #ffffff;
+    --texto-escuro: #000000;
+    --fundo-claro: #ffffff;
+    --fundo-escuro: #3d3d3d;
+}
+
+/* Estilos para o tema claro */
+body.light-theme {
+    background-color: var(--fundo-claro);
+    color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.dark-theme {
+    background-color: var(--fundo-escuro);
+    color: var(--text-claro);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body.light-theme .nav-link {
+    color: var(--fundo-escuro);
+}
+body.dark-theme .nav-link .form-label {
+    color: var(--text-claro);
+}
+body.dark-theme .form-check-label {
+    color: var(--text-claro);
+}
+
+body.dark-theme .form-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--text-claro);
+    margin-left: 0.25rem;
+}

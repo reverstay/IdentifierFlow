@@ -1,0 +1,10 @@
+.texto-intro{
+    color: whitesmoke;
+}
+
+@media (max-width: 992px) {
+    .texto-intro{
+        color: whitesmoke;
+        margin-right: 0;
+    }
+}

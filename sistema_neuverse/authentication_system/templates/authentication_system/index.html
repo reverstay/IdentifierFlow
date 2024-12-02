@@ -1,0 +1,79 @@
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>sistema de autenticação</title>
+    <link rel="stylesheet" href="{% static 'light-theme.css' %}" id="theme-link">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <script>
+        function switchTheme(theme) {
+            const themeLink = document.getElementById('theme-link');
+            themeLink.href = theme === 'dark' ? "{% static 'dark-theme.css' %}" : "{% static 'light-theme.css' %}";
+            document.cookie = `theme=${theme};path=/`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const theme = document.cookie.split('; ').find(row => row.startsWith('theme=')).split('=')[1];
+            switchTheme(theme);
+        });
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">sistema_iot</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'index' %}">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}">Registrar</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}">Login</a>
+            </li>
+            <li>
+                <form action="{% url 'set_language' %}" method="post" class="form-inline">
+                    {% csrf_token %}
+                    <select name="language" onchange="this.form.submit()" class="form-control ml-2">
+                        {% get_current_language as LANGUAGE_CODE %}
+                        {% get_available_languages as LANGUAGES %}
+                        {% for lang in LANGUAGES %}
+                        <option value="{{ lang.0 }}" {% if lang.0 == LANGUAGE_CODE %}selected{% endif %}>
+                            {{ lang.1 }}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </form>
+            </li>
+            <li>
+                <button class="btn btn-light ml-2" onclick="switchTheme('light')">Light Theme</button>
+                <button class="btn btn-dark ml-2" onclick="switchTheme('dark')">Dark Theme</button>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="full-height">
+    <div class="content-wrapper">
+        <div class="jumbotron mt-4 text-center">
+            <h1 class="display-4">Bem-vindo ao sistema_iot!</h1>
+            <p class="lead">Esta é uma simples aplicação de sistema_iot para demonstrar o uso de Django com Bootstrap.</p>
+            <hr class="my-4">
+            <p>Você pode registrar-se ou fazer login para acessar mais recursos.</p>
+            <a class="btn btn-primary btn-lg" href="{% url 'register' %}" role="button">Registrar</a>
+            <a class="btn btn-secondary btn-lg" href="{% url 'login' %}" role="button">Login</a>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

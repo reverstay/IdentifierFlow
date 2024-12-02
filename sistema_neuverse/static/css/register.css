@@ -1,0 +1,151 @@
+:root {
+    --text-introdu: rgb(255, 255, 255);
+    --text-claro: #ffffff;
+    --texto-escuro: #4f4f4f;
+    --fundo-claro: #ffffff;
+    --fundo-escuro: #596075;
+    --navbar-back-ground: rgb(68 68 68 / 23%);
+    --botao: rgba(5, 255, 248, 0.63);
+    --botao-claro: rgb(236, 252, 250);
+}
+
+/* Estilos para o tema claro */
+
+/* nav bar estilos */
+
+body.light-theme .navbar-brand {
+    mix-blend-mode: screen;
+    color: var(--texto-escuro); /* Cor do texto claro para fundo escuro */
+}
+body.light-theme .btn-outline-primary {
+    --bs-btn-color: var(--botao-claro);
+    --bs-btn-border-color: var(--botao-claro);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--botao-claro);
+    --bs-btn-hover-border-color: var(--botao-claro);
+    --bs-btn-focus-shadow-rgb: 203, 12, 159;
+    --bs-btn-active-color: var(--texto-escuro);
+    --bs-btn-active-bg: var(--botao);
+    --bs-btn-active-border-color: var(--botao);
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: var(--botao);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--botao);
+    --bs-gradient: none;
+}
+
+body.light-theme .btn-outline-primary:hover:not(.active) {
+     background-color: transparent;
+     opacity: .75;
+     box-shadow: none;
+     color: var(--botao-claro);
+ }
+
+
+
+.navbar {
+    background-color: var(--navbar-back-ground);
+    box-shadow: var(--fundo-escuro);
+    border-radius: 10px;
+}
+
+.texto-neu {
+    color: var(--text-introdu);
+    text-align: justify;
+    font-weight: bold;
+}
+
+body.light-theme {
+    background-color: var(--fundo-claro);
+    color: #000000;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+
+}
+
+body.light-theme .nav-link {
+    color: var(--fundo-claro);
+}
+
+body.light-theme .navbar .navbar-brand {
+     color: var(--fundo-claro);
+ }
+
+body.light-theme .navbar .navbar-brand .text-dark {
+    color: var(--text-claro);
+}
+
+body.light-theme .blur {
+    background-color: var(--navbar-back-ground) !important;
+    box-shadow: var(--navbar-back-ground);
+    -webkit-backdrop-filter: saturate(200%) blur(30px);
+    backdrop-filter: saturate(200%) blur(30px);
+}
+
+/* dark theme - nav bar estilos */
+
+body.dark-theme .navbar .navbar-brand {
+    mix-blend-mode: difference;
+    color: var(--text-claro);
+}
+
+body.dark-theme .btn-outline-primary:hover:not(.active) {
+    mix-blend-mode: difference;
+    color: var(--botao);
+}
+
+
+body.dark-theme .btn-outline-primary {
+    --bs-btn-color: var(--botao);
+    --bs-btn-border-color: var(--botao);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--botao);
+    --bs-btn-hover-border-color: var(--botao);
+    --bs-btn-focus-shadow-rgb: 203, 12, 159;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--botao);
+    --bs-btn-active-border-color: var(--botao);
+    --bs-btn-active-shadow: none;
+    --bs-btn-disabled-color: var(--botao);
+    --bs-btn-disabled-bg: transparent;
+    --bs-btn-disabled-border-color: var(--botao);
+    --bs-gradient: none;
+}
+
+body.dark-theme .blur {
+    background-color: var(--navbar-back-ground) !important;
+    box-shadow: var(--navbar-back-ground);
+    -webkit-backdrop-filter: saturate(200%) blur(30px);
+    backdrop-filter: saturate(200%) blur(30px);
+}
+
+body.dark-theme .nav-link{
+    color: var(--text-claro) !important;
+}
+
+body.dark-theme .text-light{
+    color: var(--text-claro) !important;
+}
+
+body.dark-theme {
+    background-color: var(--fundo-escuro);
+    color: var(--text-claro);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+body.dark-theme .form-check-label {
+    color: var(--texto-escuro);
+}
+body.dark-theme .text-sm {
+    color: var(--texto-escuro);
+}
+
+body.dark-theme .form-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--texto-escuro);
+    margin-left: 0.25rem;
+}
