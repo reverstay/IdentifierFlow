@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Editar Usuário{% endblock %}
+{% block content %}
+<h2>Editar Usuário</h2>
+<form method="POST" id="usuarioForm">
+  <div class="mb-3">
+    <label for="nome" class="form-label">Nome</label>
+    <input type="text" name="nome" id="nome" class="form-control" value="{{ usuario.nome }}" required>
+  </div>
+  <div class="mb-3">
+    <label for="documento" class="form-label">Documento</label>
+    <input type="text" name="documento" id="documento" class="form-control" value="{{ usuario.documento }}" required>
+  </div>
+  {% if usuario.foto %}
+  <div class="mb-3">
+    <label class="form-label">Foto Atual</label>
+    <div>
+      <img src="{{ url_for('usuario_file', filename=usuario.foto) }}" alt="Foto" class="img-thumbnail" style="max-width:100px;">
+    </div>
+  </div>
+  {% endif %}
+  <div class="mb-3">
+    <label class="form-label">Atualizar Foto (opcional)</label>
+    <div id="camera" class="mb-2"></div>
+    <button type="button" class="btn btn-secondary" id="captureBtn">Capturar Nova Foto</button>
+    <canvas id="canvas" style="display:none;"></canvas>
+    <input type="hidden" name="foto_data" id="foto_data">
+    <div id="preview" class="mt-2"></div>
+  </div>
+  <button type="submit" class="btn btn-primary">Atualizar Usuário</button>
+</form>
+
+<script>
+if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  var video = document.createElement('video');
+  video.setAttribute('autoplay', '');
+  video.setAttribute('playsinline', '');
+  document.getElementById('camera').appendChild(video);
+  navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+    video.srcObject = stream;
+  });
+  document.getElementById('captureBtn').addEventListener('click', function() {
+    var canvas = document.getElementById('canvas');
+    canvas.width = video.videoWidth;
+    canvas.height = video.videoHeight;
+    canvas.getContext('2d').drawImage(video, 0, 0);
+    var dataURL = canvas.toDataURL('image/png');
+    document.getElementById('foto_data').value = dataURL;
+    document.getElementById('preview').innerHTML = '<img src="'+dataURL+'" class="img-thumbnail" style="max-width:200px;">';
+  });
+}
+</script>
+{% endblock %}
