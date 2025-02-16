@@ -1,0 +1,1 @@
+ D:\\Repositorios\\Android\\LogIn_full_authorization_flutter\\.dart_tool\\flutter_build\\ee381d5ffbaf2457366b1e0dc47ccf05\\native_assets.yaml: 
