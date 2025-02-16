@@ -170,15 +170,6 @@ def get_user_and_org_details(user_id: int):
     org_name = org_resp.data[0].get("name")
     return nome_usuario, org_name
 
-# =============================
-# Modelo de Requisição para Identificação (Endpoint /identify/)
-# =============================
-class ImageRequest(BaseModel):
-    """
-    Modelo para requisição com o nome do arquivo armazenado no Supabase.
-    Exemplo: {"filename": "fotos/entrada_1645123456789.jpg"}
-    """
-    filename: str
 
 # =============================
 # Criação do Servidor FastAPI
@@ -188,43 +179,6 @@ app = FastAPI(
     description="Sincroniza fotos do Supabase com a pasta local, identifica usuários e registra logs de visita.",
     version="1.0.0"
 )
-
-# --- Endpoint para identificação manual (para testes) ---
-@app.post("/identify/")
-async def identify_image(request: ImageRequest):
-    try:
-        image_bytes = download_file("imagens", request.filename)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro ao baixar a imagem: {str(e)}")
-    try:
-        with tempfile.NamedTemporaryFile(suffix=".jpg", delete=False) as tmp_file:
-            tmp_file.write(image_bytes)
-            temp_filename = tmp_file.name
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro ao salvar a imagem temporária: {str(e)}")
-    try:
-        image = face_recognition.load_image_file(temp_filename)
-        os.remove(temp_filename)
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=f"Erro ao carregar a imagem para processamento: {str(e)}")
-    unknown_encodings = face_recognition.face_encodings(image)
-    if len(unknown_encodings) == 0:
-        enviar_comando("NEGADO")
-        raise HTTPException(status_code=404, detail="Nenhuma face encontrada na imagem.")
-    unknown_encoding = unknown_encodings[0]
-    best_match = None
-    best_distance = float("inf")
-    for user_id, known_encoding in usuarios.items():
-        distance = face_recognition.face_distance([known_encoding], unknown_encoding)[0]
-        if distance < best_distance:
-            best_distance = distance
-            best_match = user_id
-    tolerance = 0.63
-    if best_distance > tolerance:
-        enviar_comando("NEGADO")
-        return {"user_id": None, "distance": best_distance, "message": "Nenhuma face correspondente encontrada."}
-    enviar_comando("LIBERAR")
-    return {"user_id": best_match, "distance": best_distance}
 
 # --- Endpoint para sincronização manual (para testes) ---
 @app.get("/sync-files/")
